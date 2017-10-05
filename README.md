@@ -1,0 +1,2 @@
+# Apps-Manager-Android-App
+Apps Manager is intended to show a descriptive module of how multiple apps are accessed with the help of a launcher which makes it easier for the user to have all the apps installed on his/her device to access rapidly in a very short span of time. The Apps Manager is divided into many modules. Each of the modules serves a different purpose which leads to the Strength of the Apps Manager.
