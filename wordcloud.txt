@@ -1,0 +1,55 @@
+ Text mining methods allow us to highlight the most frequently used keywords in a paragraph of texts.
+ One can create a word cloud, also referred as text cloud or tag cloud, which is a visual representation of text data.
+
+ The text mining package (tm) and the word cloud generator package (wordcloud) 
+are available in R for helping us to analyze texts and to quickly visualize the keywords as a word cloud.
+
+
+Step 1 : Install and load the required packages
+# Install
+install.packages("tm")  # for text mining
+install.packages("SnowballC") # for text stemming
+install.packages("wordcloud") # word-cloud generator 
+install.packages("RColorBrewer") # color palettes
+# Load
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+
+  # use tm::Corpus() function details FOR an input text. 
+
+STEP 2: text<-"Cloud computing is also called as “ON DEMAND COMPUTING”.
+ It is a model in which there is On Demand Access to a shared pool of configurable computing resources. 
+We save our data on cloud when we have limited amount of storage. 
+Cloud provides storage and the data that are stored in cloud is also having backup as it retains many copies of that particular data."
+
+STEP 3: First, we need to create vector source. VectorSource makes each element of vector as a document and builds corpus metadata object.
+
+    vs_text<-VectorSource(text) 
+    corpus_text<-Corpus(vs_text)
+
+STEP 4: Next, we use TermDocumentMatrix function to build document-term matrix.
+
+    tdm<-TermDocumentMatrix(corpus_text)
+
+STEP 5: Converting object into matrix and sorting.
+
+    m<-as.matrix(tdm)
+
+    v<-sort(rowSums(m),decreasing = T) 
+
+STEP 6: Collecting the result into data frame.
+  
+   df_text<-data.frame(word=names(v),freq=v) 
+  
+   head(df_text)
+
+STEP 7: Finally, we draw word cloud for df_text.
+
+ wordcloud(words = df_text$word, freq = df_text$freq, min.freq = 1, max.words=200, random.order=FALSE, rot.per=0.35, colors=brewer.pal(8, "Dark2"))
+
+WHERE , rot.per is the percentage of vertical text, and colors provides a wide choice of symbolizing your data.
+             Scale controls the difference between the largest and smallest font, 
+           max.words is required to limit the number of words in the cloud 
+          (if you omit this R will try to squeeze every unique word into the diagram),
